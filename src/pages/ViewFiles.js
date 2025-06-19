@@ -1,0 +1,95 @@
+import React, { useEffect, useState } from 'react';
+import './viewfiles.css';
+
+const ViewFiles = () => {
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [sharedLinks, setSharedLinks] = useState({}); // { filename: url }
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const username = user?.username;
+
+  useEffect(() => {
+    if (!username) return;
+
+    fetch(`http://localhost:5000/api/files/${username}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFiles(data.files || []);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Error fetching files.');
+        setLoading(false);
+      });
+  }, [username]);
+
+  const handleDelete = async (filename) => {
+    try {
+      const res = await fetch(`http://localhost:5000/api/files/${filename}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.message) {
+        setFiles((prev) => prev.filter((file) => file.filename !== filename));
+        setSharedLinks((prev) => {
+          const updated = { ...prev };
+          delete updated[filename];
+          return updated;
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleShare = (filename) => {
+  // Secure link pointing to frontend route
+  const shareUrl = `http://localhost:3000/api/files/protected-access/${filename}`;
+  setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
+};
+
+
+  if (!username) return <p>Please log in to view your documents.</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+
+  return (
+    <div className="viewfiles-container">
+      <h2>📁 Your Uploaded Files</h2>
+      {files.length === 0 ? (
+        <p>No files uploaded yet.</p>
+      ) : (
+        <ul className="file-list">
+          {files.map((file) => (
+            <li key={file._id}>
+              <span>{file.originalname}</span>
+              <div className="btn-group">
+                <a
+                href={`http://localhost:3000/api/files/protected-access/${file.filename}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="view-link"
+                >
+                View
+                </a>
+                <button className="delete-btn" onClick={() => handleDelete(file.filename)}>Delete</button>
+                <button className="share-btn" onClick={() => handleShare(file.filename)}>Share</button>
+              </div>
+              {sharedLinks[file.filename] && (
+                <p className="shared-link">
+                  🔗 <a href={sharedLinks[file.filename]} target="_blank" rel="noopener noreferrer">
+                    {sharedLinks[file.filename]}
+                  </a>
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default ViewFiles;

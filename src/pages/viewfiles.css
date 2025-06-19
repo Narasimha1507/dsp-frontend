@@ -1,0 +1,107 @@
+/* Container styling */
+.viewfiles-container {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading */
+.viewfiles-container h2 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* File list styling */
+.file-list {
+  list-style: none;
+  padding: 0;
+}
+
+.file-list li {
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+/* File name */
+.file-list span {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Button group layout */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-left: 35vh;
+}
+
+/* Common button and link style */
+.file-list a.view-link,
+.file-list .delete-btn,
+.file-list .share-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 70px;
+  text-align: center;
+}
+
+/* View Button */
+.file-list a.view-link {
+  background-color: #3498db;
+  color: white;
+}
+
+.file-list a.view-link:hover {
+  background-color: #2980b9;
+}
+
+/* Delete Button */
+.file-list .delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.file-list .delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Share Button */
+.file-list .share-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.file-list .share-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Shared link display */
+.shared-link {
+  margin-top: 8px;
+  font-size: 14px;
+  word-break: break-all;
+  background-color: #f0f0f0;
+  padding: 8px;
+  border-radius: 6px;
+  border-left: 4px solid #3498db;
+  color: #2c3e50;
+}

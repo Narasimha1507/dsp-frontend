@@ -1,0 +1,63 @@
+.upload-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.upload-container h2 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-form input[type="file"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.upload-form button {
+  background-color: #2980b9;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.upload-form button:hover {
+  background-color: #1f6391;
+}
+
+.upload-message {
+  margin-top: 1rem;
+  color: #27ae60;
+  font-weight: 500;
+}
+
+#pass{
+  margin-left: 20px;
+  border: none;
+  background-color: #2980b9;
+  color: white;
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+#pass:hover {
+  background-color: #1f6391;
+}
