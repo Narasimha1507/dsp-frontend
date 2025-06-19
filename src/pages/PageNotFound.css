@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+.notfound-container {
+  height: 100vh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  color: #00ffe1;
+  position: relative;
+  overflow: hidden;
+}
+
+.glitch-text {
+  font-size: 10rem;
+  font-weight: bold;
+  color: #00ffe1;
+  position: relative;
+  animation: flicker 1s infinite alternate;
+  text-shadow: 0 0 5px #00ffe1, 0 0 15px #00ffe1;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  right: 0;
+  color: #00ffe1;
+  background: black;
+  overflow: hidden;
+}
+
+.glitch-text::before {
+  top: -2px;
+  animation: glitchTop 1.5s infinite;
+}
+
+.glitch-text::after {
+  bottom: -2px;
+  animation: glitchBottom 1.5s infinite;
+}
+
+.notfound-message {
+  font-size: 1.8rem;
+  margin-top: 10px;
+  color: #00ffe1;
+  text-shadow: 0 0 6px #00ffe1;
+}
+
+.notfound-subtext {
+  font-size: 1rem;
+  color: #aafaf7;
+  margin: 10px 0 30px;
+}
+
+.back-home-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: 2px solid #00ffe1;
+  color: #00ffe1;
+  background: transparent;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px #00ffe1;
+}
+
+.back-home-button:hover {
+  background-color: #00ffe1;
+  color: #000;
+  box-shadow: 0 0 20px #00ffe1;
+}
+
+/* Glitch Effects */
+@keyframes glitchTop {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(0, 9999px, 10px, 0); }
+  20% { clip: rect(0, 9999px, 5px, 0); }
+  30% { clip: rect(0, 9999px, 15px, 0); }
+  40% { clip: rect(0, 9999px, 3px, 0); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+
+@keyframes glitchBottom {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(10px, 9999px, 20px, 0); }
+  20% { clip: rect(5px, 9999px, 15px, 0); }
+  30% { clip: rect(15px, 9999px, 25px, 0); }
+  40% { clip: rect(3px, 9999px, 13px, 0); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+
+/* Flickering */
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}

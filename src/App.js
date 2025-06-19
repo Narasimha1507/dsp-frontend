@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard';
 import Upload from './pages/Upload';
 import ViewFiles from './pages/ViewFiles';
 import ProtectedAccess from './pages/ProtectedAccess';
+import PageNotFound from './pages/PageNotFound';
 
 function useCursorEffect() {
   useEffect(() => {
@@ -54,6 +55,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/viewfiles" element={<ViewFiles />} />
           <Route path="/api/files/protected-access/:filename" element={<ProtectedAccess />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>
