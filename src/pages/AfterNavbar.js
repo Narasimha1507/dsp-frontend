@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './afterNavbar.css';
 
 const AfterNavbar = () => {
@@ -15,16 +15,19 @@ const AfterNavbar = () => {
   if (!user) return null;
 
   return (
-    <nav className="after-navbar">
-      <div className="logo">📁 DocuShare</div>
-      <div className="nav-items">
-        {/* <span className="welcome-text">Welcome, {user.username || user.email}!</span> */}
-        <Link className="nav-link" to="/upload">Upload</Link>
-        <Link className="nav-link" to="/viewfiles">View Files</Link>
-        <Link className="nav-link" to="/profile">Profile</Link>
-        <span className="nav-link logout" onClick={handleLogout}>Logout</span>
+    <header className="after-navbar">
+      <div className="after-navbar-logo">
+        <NavLink to="/dashboard" className="brand">📁 DocuShare</NavLink>
       </div>
-    </nav>
+      <nav>
+        <ul className="after-navbar-links">
+          <li><NavLink to="/upload" className={({ isActive }) => isActive ? 'active' : ''}>Upload</NavLink></li>
+          <li><NavLink to="/viewfiles" className={({ isActive }) => isActive ? 'active' : ''}>View Files</NavLink></li>
+          <li><NavLink to="/profile" className={({ isActive }) => isActive ? 'active' : ''}>Profile</NavLink></li>
+          <li><span className="logout" onClick={handleLogout}>Logout</span></li>
+        </ul>
+      </nav>
+    </header>
   );
 };
 

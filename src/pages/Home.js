@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './home.css';
 
 const Home = () => {
+  const [typedText, setTypedText] = useState('');
+  const fullText = 'Weelcome to DocuShare';
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setTypedText((prev) => prev + fullText.charAt(index));
+      index++;
+      if (index === fullText.length) clearInterval(interval);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="home-wrapper">
       <section className="hero-section">
         <div className="hero-content">
-          <h1>Welcome to DocuShare</h1>
-          <p>Your secure and simple platform to upload, manage, and share documents effortlessly.</p>
+          <h1 className="type-text">{typedText}</h1>
+          <p className="fade-in">Your secure and simple platform to upload, manage, and share documents effortlessly.</p>
           <Link to="/signup">
             <button className="cta-button">Get Started</button>
           </Link>

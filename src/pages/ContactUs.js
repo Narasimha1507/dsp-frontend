@@ -15,6 +15,7 @@ const ContactUs = () => {
   };
 
   return (
+    <div className='contact-wrapper'>
     <div className="contact-container">
       <h1>Contact Us</h1>
       <form onSubmit={handleSubmit}>
@@ -44,6 +45,7 @@ const ContactUs = () => {
         ></textarea>
         <button type="submit">Send Message</button>
       </form>
+    </div>
     </div>
   );
 };

@@ -1,63 +1,115 @@
 .upload-container {
   max-width: 600px;
-  margin: 50px auto;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 60px auto;
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  background-color: #0b0f1a;
+  box-shadow: 0 0 20px rgba(0, 255, 234, 0.1);
+  color: #e0f7f5;
+  font-family: 'Share Tech Mono', monospace;
   text-align: center;
+  border: 1px solid rgba(0, 255, 234, 0.15);
 }
 
 .upload-container h2 {
+  color: #00ffe1;
+  font-size: 1.8rem;
+  text-shadow: 0 0 8px #00ffe1;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
 }
 
 .upload-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
+  align-items: center;
 }
 
 .upload-form input[type="file"] {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+  background-color: #121826;
+  border: 1px solid #00ffe1;
+  padding: 0.7rem;
   border-radius: 6px;
+  color: #00ffe1;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.upload-form button {
-  background-color: #2980b9;
-  color: white;
-  padding: 0.6rem;
+.upload-form input[type="file"]::file-selector-button {
+  background-color: #00ffe1;
+  color: #0b0f1a;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.upload-form input[type="file"]::file-selector-button:hover {
+  background-color: #00d0c0;
+}
+
+.upload-form button,
+#pass {
+  background-color: #00ffe1;
+  color: #0b0f1a;
+  padding: 0.7rem 1.2rem;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.upload-form button:hover {
-  background-color: #1f6391;
-}
-
-.upload-message {
-  margin-top: 1rem;
-  color: #27ae60;
-  font-weight: 500;
-}
-
-#pass{
-  margin-left: 20px;
-  border: none;
-  background-color: #2980b9;
-  color: white;
-  padding: 0.6rem;
-  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 255, 234, 0.3);
 }
+
+.upload-form button:hover,
 #pass:hover {
-  background-color: #1f6391;
+  background-color: #00cfc0;
+  box-shadow: 0 0 12px rgba(0, 255, 234, 0.5);
+}
+
+.upload-message,
+.upload-link {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #00ffae;
+  text-shadow: 0 0 5px #00ffae;
+}
+
+.upload-link a {
+  color: #00ffe1;
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.upload-link a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ffe1;
+}
+
+.password-section {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.password-section input {
+  padding: 0.6rem 1rem;
+  border: 1px solid #00ffe1;
+  background-color: #121826;
+  color: #00ffe1;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Share Tech Mono', monospace;
+  transition: 0.3s;
+}
+
+.password-section input:focus {
+  outline: none;
+  box-shadow: 0 0 6px #00ffe1;
 }

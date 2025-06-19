@@ -7,6 +7,7 @@ const Profile = () => {
   const [formData, setFormData] = useState({ username: '', mobile: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     const sessionUser = sessionStorage.getItem('user');
@@ -22,6 +23,13 @@ const Profile = () => {
         if (data.user) {
           setUser(data.user);
           setFormData({ username: data.user.username, mobile: data.user.mobile });
+          const interval = setInterval(() => {
+            setStep((prev) => {
+              if (prev < 3) return prev + 1;
+              clearInterval(interval);
+              return prev;
+            });
+          }, 800);
         } else {
           setError('Failed to load user details.');
         }
@@ -67,7 +75,7 @@ const Profile = () => {
   };
 
   if (error) return <p className="error-msg">{error}</p>;
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <p className="console-msg"> Loading...</p>;
 
   return (
     <div className="profile-container">
@@ -77,36 +85,42 @@ const Profile = () => {
           alt="User Avatar"
         />
       </div>
-      <h2>My Profile</h2>
+      <h2>🧑‍💻 Terminal Profile</h2>
       {success && <p className="success-msg">{success}</p>}
       <div className="profile-details">
-        <p><strong>Email:</strong> {user.email}</p>
-        <p>
-          <strong>Username:</strong>{' '}
-          {editMode ? (
-            <input name="username" value={formData.username} onChange={handleChange} />
-          ) : (
-            user.username
-          )}
-        </p>
-        <p>
-          <strong>Mobile:</strong>{' '}
-          {editMode ? (
-            <input name="mobile" value={formData.mobile} onChange={handleChange} />
-          ) : (
-            user.mobile
-          )}
-        </p>
-        <div className="profile-actions">
-          {editMode ? (
-            <>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleEditToggle}>Cancel</button>
-            </>
-          ) : (
-            <button onClick={handleEditToggle}>Edit Profile</button>
-          )}
-        </div>
+        {step >= 1 && (
+          <p className="console-msg finish"> Email: {user.email}</p>
+        )}
+        {step >= 2 && (
+          <p className="console-msg finish">
+             Username: {editMode ? (
+              <input name="username" value={formData.username} onChange={handleChange} />
+            ) : (
+              user.username
+            )}
+          </p>
+        )}
+        {step >= 3 && (
+          <p className="console-msg finish">
+             Mobile: {editMode ? (
+              <input name="mobile" value={formData.mobile} onChange={handleChange} />
+            ) : (
+              user.mobile
+            )}
+          </p>
+        )}
+        {step >= 3 && (
+          <div className="profile-actions">
+            {editMode ? (
+              <>
+                <button onClick={handleSave}>Save</button>
+                <button onClick={handleEditToggle}>Cancel</button>
+              </>
+            ) : (
+              <button onClick={handleEditToggle}>Edit Profile</button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

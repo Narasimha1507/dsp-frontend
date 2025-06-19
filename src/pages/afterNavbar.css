@@ -1,124 +1,111 @@
-/* Base styling */
 .after-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1e2f;
+  background-color: #010101;
+  backdrop-filter: blur(20px);
   padding: 16px 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 12px rgba(191, 211, 210, 0.2);
+  border-bottom: 1px solid rgba(0, 255, 234, 0.2);
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
 }
 
-/* Logo styling */
-.after-navbar .logo {
-  color: #00d8ff;
-  font-size: 1.8rem;
+.after-navbar-logo .brand {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2rem;
   font-weight: bold;
+  color: #00ffe1;
   text-decoration: none;
-  transition: color 0.3s ease;
-  cursor: pointer;
-}
-
-.after-navbar .logo:hover {
-  color: #ffffff;
-}
-
-/* Navigation items */
-.after-navbar .nav-items {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  color: #f0f0f0;
-  font-size: 1rem;
-}
-
-/* Logout button */
-.after-navbar .nav-items button {
-  background-color: transparent;
-  color: #f0f0f0;
-  border: 1px solid #00d8ff;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
   transition: all 0.3s ease;
+  text-shadow: 0 0 5px #00ffe1;
 }
 
-.after-navbar .nav-items button:hover {
-  background-color: rgba(0, 216, 255, 0.15);
-  color: #00d8ff;
-}
-.after-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1e1e2f;
-  padding: 16px 32px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  color: #f0f0f0;
+.after-navbar-logo .brand:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff;
 }
 
-.logo {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #00d8ff;
-}
-
-.nav-items {
+.after-navbar-links {
+  list-style: none;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
 }
 
-.welcome-text {
-  font-size: 1rem;
-  margin-right: 12px;
-}
-
-.nav-link {
-  color: #00d8ff;
+.after-navbar-links li a,
+.after-navbar-links .logout {
+  font-family: 'Share Tech Mono', monospace;
+  color: #e0f7f5;
+  font-size: 1.1rem;
+  padding: 10px 16px;
+  border-radius: 8px;
   text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: background 0.3s ease;
+  position: relative;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
-.nav-link:hover {
-  background-color: #00d8ff;
-  color: #1e1e2f;
+/* Hover + Active neon glow */
+.after-navbar-links li a:hover,
+.after-navbar-links li a.active {
+  color: #00ffe1;
+  background-color: rgba(0, 255, 234, 0.1);
+  box-shadow: 0 0 10px rgba(0, 255, 234, 0.2);
 }
 
+.after-navbar-links li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffe1, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.after-navbar-links li a:hover::after,
+.after-navbar-links li a.active::after {
+  transform: scaleX(1);
+}
+
+/* Logout styling */
 .logout {
   color: #ff4d4d;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .logout:hover {
   background-color: #ff4d4d;
   color: #fff;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
+  border-radius: 6px;
 }
 
-
-/* Responsive design: mobile */
+/* Responsive: Mobile menu */
 @media (max-width: 768px) {
   .after-navbar {
     flex-direction: column;
     align-items: flex-start;
-    padding: 16px;
+    padding: 16px 24px;
   }
 
-  .after-navbar .nav-items {
+  .after-navbar-links {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 12px;
+    width: 100%;
+    margin-top: 16px;
+    gap: 12px;
   }
 
-  .after-navbar .nav-items button {
+  .after-navbar-links li a,
+  .after-navbar-links .logout {
     width: 100%;
+    padding: 12px;
   }
 }

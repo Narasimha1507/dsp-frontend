@@ -3,6 +3,7 @@ import './aboutus.css';
 
 const AboutUs = () => {
   return (
+    <div className='home-wrapper'>
     <div className="about-container">
       <h1>About DocuShare</h1>
       <p>
@@ -45,6 +46,7 @@ const AboutUs = () => {
           <li>👨‍💻 2200032436 - Md Thasmuddin</li>
         </ul>
       </div>
+    </div>
     </div>
   );
 };

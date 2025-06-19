@@ -3,7 +3,7 @@ import AuthForm from './pages/AuthForm';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
-
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './pages/Navbar';
 import AfterNavbar from './pages/AfterNavbar';
@@ -13,15 +13,37 @@ import Upload from './pages/Upload';
 import ViewFiles from './pages/ViewFiles';
 import ProtectedAccess from './pages/ProtectedAccess';
 
+function useCursorEffect() {
+  useEffect(() => {
+    let cursor = document.getElementById('custom-cursor');
+    if (!cursor) {
+      cursor = document.createElement('div');
+      cursor.id = 'custom-cursor';
+      document.body.appendChild(cursor);
+    }
+
+    const updateCursor = (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+    };
+
+    window.addEventListener('mousemove', updateCursor);
+    return () => {
+      window.removeEventListener('mousemove', updateCursor);
+      cursor.remove();
+    };
+  }, []);
+}
+
 function App() {
   const user = JSON.parse(sessionStorage.getItem("user"));
+  useCursorEffect();
 
   return (
     <div className="App">
+      <div className="grid-overlay"></div>
       <Router>
-        {/* Show UserNavBar only if logged in, otherwise MainNavBar */}
         {user ? <AfterNavbar /> : <Navbar />}
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
@@ -32,8 +54,6 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/viewfiles" element={<ViewFiles />} />
           <Route path="/api/files/protected-access/:filename" element={<ProtectedAccess />} />
-
-          
         </Routes>
       </Router>
     </div>

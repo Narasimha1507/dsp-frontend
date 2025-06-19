@@ -5,7 +5,7 @@ const ViewFiles = () => {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [sharedLinks, setSharedLinks] = useState({}); // { filename: url }
+  const [sharedLinks, setSharedLinks] = useState({});
 
   const user = JSON.parse(sessionStorage.getItem('user'));
   const username = user?.username;
@@ -45,21 +45,19 @@ const ViewFiles = () => {
   };
 
   const handleShare = (filename) => {
-  // Secure link pointing to frontend route
-  const shareUrl = `http://localhost:3000/api/files/protected-access/${filename}`;
-  setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
-};
+    const shareUrl = `http://localhost:3000/api/files/protected-access/${filename}`;
+    setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
+  };
 
-
-  if (!username) return <p>Please log in to view your documents.</p>;
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (!username) return <p className="console-msg"> Please log in to view your documents.</p>;
+  if (loading) return <p className="console-msg"> Loading files...</p>;
+  if (error) return <p className="console-msg"> {error}</p>;
 
   return (
     <div className="viewfiles-container">
-      <h2>📁 Your Uploaded Files</h2>
+      <h2>📂 Uploaded File Explorer</h2>
       {files.length === 0 ? (
-        <p>No files uploaded yet.</p>
+        <p className="console-msg"> No files uploaded yet.</p>
       ) : (
         <ul className="file-list">
           {files.map((file) => (
@@ -67,12 +65,12 @@ const ViewFiles = () => {
               <span>{file.originalname}</span>
               <div className="btn-group">
                 <a
-                href={`http://localhost:3000/api/files/protected-access/${file.filename}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="view-link"
+                  href={`http://localhost:3000/api/files/protected-access/${file.filename}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="view-link"
                 >
-                View
+                  View
                 </a>
                 <button className="delete-btn" onClick={() => handleDelete(file.filename)}>Delete</button>
                 <button className="share-btn" onClick={() => handleShare(file.filename)}>Share</button>

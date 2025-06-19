@@ -77,6 +77,7 @@ const AuthForm = ({ onLogin, onSignup }) => {
   };
 
   return (
+    <div className='auth-wrapper'>
     <div className="auth-container">
       <div className="tab-switcher">
         <button className={isLogin ? 'active' : ''} onClick={() => setIsLogin(true)}>Login</button>
@@ -162,6 +163,7 @@ const AuthForm = ({ onLogin, onSignup }) => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };
