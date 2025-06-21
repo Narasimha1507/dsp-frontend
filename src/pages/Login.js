@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './login.css';
+import config from '../config';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ const Login = ({ onLogin }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${config.url}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

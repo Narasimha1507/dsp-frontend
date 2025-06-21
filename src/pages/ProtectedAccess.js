@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./ProtectedAccess.css";
+import config from '../config';
 
 const ProtectedFilePage = () => {
   const [password, setPassword] = useState('');
@@ -12,11 +13,11 @@ const ProtectedFilePage = () => {
   const filename = window.location.pathname.split('/').pop();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/files/info/${filename}`)
+    fetch(`${config.url}/api/files/info/${filename}`)
       .then(res => res.json())
       .then(data => {
         if (!data.requiresPassword) {
-          fetch(`http://localhost:5000/api/files/protected-access/${filename}`, {
+          fetch(`${config.url}/api/files/protected-access/${filename}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: '' }),
@@ -52,7 +53,7 @@ const ProtectedFilePage = () => {
     setFileUrl('');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/files/protected-access/${filename}`, {
+      const res = await fetch(`${config.url}/api/files/protected-access/${filename}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),

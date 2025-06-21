@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './upload.css';
+import config from '../config';
 
 const Upload = () => {
   const [file, setFile] = useState(null);
@@ -30,7 +31,7 @@ const Upload = () => {
     formData.append('username', username);
 
     try {
-      const res = await fetch('http://localhost:5000/api/files/upload', {
+      const res = await fetch(`${config.url}/api/files/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -52,7 +53,7 @@ const Upload = () => {
     if (!password || !uploadedFilename) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/files/share/${uploadedFilename}`, {
+      const res = await fetch(`${config.url}/api/files/share/${uploadedFilename}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

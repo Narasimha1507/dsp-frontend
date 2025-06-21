@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css';
+import config from '../config';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +18,7 @@ const Profile = () => {
     }
 
     const { email } = JSON.parse(sessionUser);
-    fetch(`http://localhost:5000/api/users/${email}`)
+    fetch(`${config.url}/api/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.user) {
@@ -54,7 +55,7 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${user.email}`, {
+      const res = await fetch(`${config.url}/api/users/${user.email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

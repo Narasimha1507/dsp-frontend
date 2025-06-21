@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './viewfiles.css';
+import config from '../config';
 
 const ViewFiles = () => {
   const [files, setFiles] = useState([]);
@@ -13,7 +14,7 @@ const ViewFiles = () => {
   useEffect(() => {
     if (!username) return;
 
-    fetch(`http://localhost:5000/api/files/${username}`)
+    fetch(`${config.url}/api/files/${username}`)
       .then((res) => res.json())
       .then((data) => {
         setFiles(data.files || []);
@@ -27,7 +28,7 @@ const ViewFiles = () => {
 
   const handleDelete = async (filename) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/files/${filename}`, {
+      const res = await fetch(`${config.url}/api/files/${filename}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -45,7 +46,7 @@ const ViewFiles = () => {
   };
 
   const handleShare = (filename) => {
-    const shareUrl = `http://localhost:3000/api/files/protected-access/${filename}`;
+    const shareUrl = `${config.url}/api/files/protected-access/${filename}`;
     setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
   };
 
@@ -65,7 +66,7 @@ const ViewFiles = () => {
               <span>{file.originalname}</span>
               <div className="btn-group">
                 <a
-                  href={`http://localhost:3000/api/files/protected-access/${file.filename}`}
+                  href={`${config.url}/api/files/protected-access/${file.filename}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="view-link"

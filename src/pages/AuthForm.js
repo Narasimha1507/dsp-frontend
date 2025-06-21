@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './authform.css';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 const AuthForm = ({ onLogin, onSignup }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,7 +38,7 @@ const AuthForm = ({ onLogin, onSignup }) => {
 
     try {
       if (isLogin) {
-        const res = await fetch('http://localhost:5000/api/users/login', {
+        const res = await fetch(`${config.url}/api/users/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),
@@ -55,7 +56,7 @@ const AuthForm = ({ onLogin, onSignup }) => {
           setError(data.message || 'Login failed. Try again.');
         }
       } else {
-        const res = await fetch('http://localhost:5000/api/users/signup', {
+        const res = await fetch(`${config.url}/api/users/signup`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, mobile, email, password }),
