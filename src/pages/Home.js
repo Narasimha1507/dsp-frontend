@@ -23,7 +23,7 @@ const Home = () => {
         <div className="hero-content">
           <h1 className="type-text">{typedText}</h1>
           <p className="fade-in">Your secure and simple platform to upload, manage, and share documents effortlessly.</p>
-          <Link to="/signup">
+          <Link to="/auth">
             <button className="cta-button">Get Started</button>
           </Link>
         </div>
