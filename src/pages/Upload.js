@@ -38,8 +38,12 @@ const Upload = () => {
 
       const data = await res.json();
       setMessage(data.message || 'Upload successful');
-      setLink(data.url || '');
-      setUploadedFilename(data.filename); // capture for password protection
+
+      // ✅ Use protected-access route
+      const shareableLink = `${window.location.origin}/protected-access/${data.filename}`;
+      setLink(shareableLink);
+
+      setUploadedFilename(data.filename);
       setShowPasswordField(true);
       setFile(null);
       document.getElementById('fileInput').value = '';
@@ -84,9 +88,13 @@ const Upload = () => {
       </form>
 
       {message && <p className="upload-message">{message}</p>}
+
       {link && (
         <p className="upload-link">
-          📎 Shareable Link: <a href={link} target="_blank" rel="noopener noreferrer">{link}</a>
+          📎 Shareable Link:&nbsp;
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            {link}
+          </a>
         </p>
       )}
 
@@ -99,7 +107,7 @@ const Upload = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button id='pass' onClick={handleSetPassword}>Set Password</button>
+          <button id="pass" onClick={handleSetPassword}>Set Password</button>
           {shareMessage && <p className="upload-message">{shareMessage}</p>}
         </div>
       )}
