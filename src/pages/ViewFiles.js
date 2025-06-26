@@ -31,6 +31,7 @@ const ViewFiles = () => {
       const res = await fetch(`${config.url}/api/files/${filename}`, {
         method: 'DELETE',
       });
+
       const data = await res.json();
       if (data.message) {
         setFiles((prev) => prev.filter((file) => file.filename !== filename));
@@ -46,19 +47,19 @@ const ViewFiles = () => {
   };
 
   const handleShare = (filename) => {
-    const shareUrl = `${config.url}/api/files/view/${filename}`;
+    const shareUrl = `${window.location.origin}/protected-access/${filename}`;
     setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
   };
 
-  if (!username) return <p className="console-msg"> Please log in to view your documents.</p>;
-  if (loading) return <p className="console-msg"> Loading files...</p>;
-  if (error) return <p className="console-msg"> {error}</p>;
+  if (!username) return <p className="console-msg">🔐 Please log in to view your documents.</p>;
+  if (loading) return <p className="console-msg">⏳ Loading files...</p>;
+  if (error) return <p className="console-msg">❌ {error}</p>;
 
   return (
     <div className="viewfiles-container">
       <h2>📂 Uploaded File Explorer</h2>
       {files.length === 0 ? (
-        <p className="console-msg"> No files uploaded yet.</p>
+        <p className="console-msg">📭 No files uploaded yet.</p>
       ) : (
         <ul className="file-list">
           {files.map((file) => (
@@ -66,7 +67,7 @@ const ViewFiles = () => {
               <span>{file.originalname}</span>
               <div className="btn-group">
                 <a
-                  href={`${config.url}/api/files/view/${file.filename}`}
+                  href={`/protected-access/${file.filename}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="view-link"
