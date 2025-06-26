@@ -46,7 +46,7 @@ const ViewFiles = () => {
   };
 
   const handleShare = (filename) => {
-    const shareUrl = `${config.url}/api/files/protected-access/${filename}`;
+    const shareUrl = `${config.url}/api/files/view/${filename}`;
     setSharedLinks((prev) => ({ ...prev, [filename]: shareUrl }));
   };
 
@@ -66,7 +66,7 @@ const ViewFiles = () => {
               <span>{file.originalname}</span>
               <div className="btn-group">
                 <a
-                  href={`${config.url}/api/files/protected-access/${file.filename}`}
+                  href={`${config.url}/api/files/view/${file.filename}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="view-link"
