@@ -13,41 +13,26 @@ const ProtectedFilePage = () => {
   const filename = window.location.pathname.split('/').pop();
 
   useEffect(() => {
+    // Check if password is required
     fetch(`${config.url}/api/files/info/${filename}`)
       .then(res => res.json())
       .then(data => {
         if (!data.requiresPassword) {
-          fetch(`${config.url}/api/files/protected-access/${filename}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: '' }),
-          })
-            .then(res => {
-              if (!res.ok) throw new Error('Error loading file');
-              return res.blob();
-            })
-            .then(blob => {
-              setFileUrl(URL.createObjectURL(blob));
-              setRequiresPassword(false);
-              setShowTyping(false);
-            })
-            .catch(() => {
-              setError('Error displaying file');
-              setShowTyping(false);
-            });
+          fetchFile('');
+          setRequiresPassword(false);
         } else {
           setRequiresPassword(true);
-          setTimeout(() => setShowTyping(false), 2200); // simulate typing duration
+          setTimeout(() => setShowTyping(false), 1500); // Show typing then prompt
         }
       })
       .catch(() => {
         setError('File not found or inaccessible');
         setShowTyping(false);
       });
+      // eslint-disable-next-line
   }, [filename]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const fetchFile = async (enteredPassword) => {
     setLoading(true);
     setError('');
     setFileUrl('');
@@ -56,7 +41,7 @@ const ProtectedFilePage = () => {
       const res = await fetch(`${config.url}/api/files/protected-access/${filename}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password: enteredPassword }),
       });
 
       if (!res.ok) {
@@ -74,17 +59,35 @@ const ProtectedFilePage = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchFile(password);
+  };
+
+  const getFileViewer = () => {
+    const ext = filename.split('.').pop().toLowerCase();
+    if (['jpg', 'jpeg', 'png', 'gif'].includes(ext)) {
+      return <img src={fileUrl} alt="Protected" className="image-viewer" />;
+    } else if (['pdf'].includes(ext)) {
+      return <iframe src={fileUrl} title="PDF Document" className="iframe-viewer" />;
+    } else {
+      return (
+        <div className="download-link">
+          <a href={fileUrl} download>
+            ⬇️ Download {filename}
+          </a>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="protected-container">
       <h2>🔐 Protected File Access</h2>
 
       {showTyping && (
-        <div className="typing-line">
-           Accessing file: "{filename}"
-        </div>
+        <div className="typing-line">Accessing file: "{filename}"</div>
       )}
-
-      {requiresPassword === null && !showTyping && <p>Loading...</p>}
 
       {requiresPassword && !showTyping && (
         <form onSubmit={handleSubmit}>
@@ -103,15 +106,7 @@ const ProtectedFilePage = () => {
 
       {error && <p className="error">{error}</p>}
 
-      {fileUrl && (
-        <div className="file-viewer">
-          {filename.match(/\.(jpg|jpeg|png|ppt|gif)$/i) ? (
-            <img src={fileUrl} alt="Protected" />
-          ) : (
-            <iframe src={fileUrl} title="Protected File" />
-          )}
-        </div>
-      )}
+      {fileUrl && !loading && getFileViewer()}
     </div>
   );
 };
