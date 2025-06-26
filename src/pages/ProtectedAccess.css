@@ -1,50 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
 .protected-container {
-  max-width: 160vh;
-  margin: 60px auto;
-  padding: 40px;
-  background-color: #000;
-  color: #00ffe1;
-  font-family: 'Share Tech Mono', monospace;
-  border: 2px solid #00ffe1;
-  box-shadow: 0 0 20px #00ffe1;
+  max-width: 1300px;
+  margin: auto;
+  padding: 2rem;
+  background: #0f0f0f;
+  border: 1px solid #333;
   border-radius: 12px;
-  text-align: left;
-  white-space: pre-line;
-}
-
-.protected-container h2 {
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 6px #00ffe1;
+  color: #f8f8f8;
+  font-family: 'Courier New', monospace;
   text-align: center;
 }
 
 .typing-line {
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid #00ffe1;
-  width: 0;
-  animation: typing 2s steps(40, end) forwards, blink 0.7s infinite;
-  font-size: 1rem;
-  margin-bottom: 20px;
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #0ff;
+  animation: blink 1.2s step-end infinite;
 }
 
 @keyframes blink {
-  50% { border-color: transparent; }
+  50% { opacity: 0.5; }
 }
 
-.protected-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: flex-start;
+form {
+  margin: 1rem 0;
 }
 
 .protected-container input[type="password"] {
@@ -58,11 +36,7 @@
   outline: none;
   caret-color: #00ffe1;
   width: 40vh;
-  margin-left: 55vh;
-}
-
-.protected-container input[type="password"]::placeholder {
-  color: #00ffe1;
+  margin-left: 62vh;
 }
 
 .protected-container button {
@@ -75,49 +49,27 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 68vh;
-}
-
-.protected-container button:hover {
-  background: #00ff0020;
+  width: 30vh;
 }
 
 .error {
-  color: red;
-  margin-top: 10px;
-  font-weight: bold;
-  text-shadow: 0 0 6px red;
+  color: #ff5252;
+  margin-top: 1rem;
 }
 
-.file-viewer {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px dashed #00ffe1;
-  height: 100vh;
-  max-height: 100vh;
-  width: 150vh;
-}
-
-.file-viewer img,
-.file-viewer iframe {
+.iframe-viewer {
+  width: 100%;
+  height: 600px;
   border: none;
-  overflow: scroll;
-  max-height: 100vh;
-  height: 100vh;
-  width: 150vh;
-  max-width: 150vh;
-  overflow: scroll;
-  border-radius: 6px;
-  box-shadow: 0 0 8px #00ffe1;
+  margin-top: 1rem;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-  .protected-container {
-    padding: 20px;
-    margin: 30px 10px;
-  }
+.image-viewer {
+  max-width: 100%;
+  max-height: 600px;
+  margin-top: 1rem;
+}
 
-  .file-viewer iframe {
-    height: 800px;
-  }
+.download-link {
+  margin-top: 1rem;
 }
